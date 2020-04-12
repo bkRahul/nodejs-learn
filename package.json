@@ -4,7 +4,7 @@
   "description": "Learning node js",
   "main": "app.js",
   "scripts": {
-    "dev": "nodemon event.js",
+    "dev": "nodemon http.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
