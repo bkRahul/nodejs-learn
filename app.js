@@ -1,6 +1,20 @@
-const getUserInfo = require('./myName')
+const express = require("express");
+const bodyParser = require("body-parser");
+const app = express();
 
-getUserInfo.myName();
-getUserInfo.myAddress;
-console.log(getUserInfo.mySalary(34000, 5000));
-console.log(new getUserInfo.MyDetails());
+const adminRoutes = require('./routes/admin');
+const shopRoutes = require('./routes/shop');
+
+app.use(bodyParser.urlencoded({ extended: false }));
+
+app.use('/admin', adminRoutes);
+
+app.use(shopRoutes);
+
+app.use((req, res, next) => {
+    res.status(404).send("<h1>Page not found</h1>");
+  });
+
+app.listen(3001, () => {
+  console.log("server is running");
+});
