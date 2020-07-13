@@ -1,10 +1,14 @@
 const express = require("express");
-const path = require('path');
+
+const productData = require('./admin')
 
 const router = express.Router();
 
 router.get("/", (req, res, next) => {
-  res.sendFile(path.join(__dirname, '../', 'views', 'shop.html'));
+  console.log(productData.products);
+  //accepts data as object which is passed to the template 
+  res.render('shop', {productData: productData.products, pageTitle: 'Shop', path: '/'});
+//  res.sendFile(path.join(__dirname, '../', 'views', 'shop.html'));
 });
 
 module.exports = router;
