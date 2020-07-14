@@ -2,7 +2,7 @@ const myName = () => {
 	console.log("Rahul");
 }
 
-const myAddress = "RPC Layout Vijaynagar";
+const myAddress = "santa clara monica";
 
 const salary = (a, b) => a + b;
 
