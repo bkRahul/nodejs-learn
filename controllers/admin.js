@@ -2,7 +2,7 @@ const Product = require("../models/product");
 
 const getAddProduct = (req, res, next) => {
   //accepts data as object which is passed to the template
-  res.render("add-product", {
+  res.render("admin/add-product", {
     pageTitle: "Add Product",
     path: "/admin/add-product",
   });
@@ -16,11 +16,17 @@ const postAddProduct = (req, res, next) => {
 };
 
 const getProducts = (req, res, next) => {
-  Product.fetchAllProduct(products => {
-    res.render("shop", { productData: products, pageTitle: "Shop", path: "/" });
-  });
-};
+    Product.fetchAllProduct((products) => {
+      res.render("admin/products", {
+        productData: products,
+        pageTitle: "Admin Products",
+        path: "/admin/products",
+      });
+    });
+  };
 
-module.exports.getAddProduct = getAddProduct;
-module.exports.postAddProduct = postAddProduct;
-module.exports.getProducts = getProducts;
+module.exports = {
+    getAddProduct: getAddProduct,
+    postAddProduct: postAddProduct,
+    getProducts: getProducts
+}
