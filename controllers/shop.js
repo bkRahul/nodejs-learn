@@ -20,6 +20,17 @@ const getProducts = (req, res, next) => {
   });
 };
 
+const getSingleProduct = (req, res, next) => {
+  const id = req.params.id;
+  Product.fetchSingleProduct(id, product => {
+    res.render("shop/product-detail", {
+      productData: product,
+      pageTitle: "Single Products",
+      path: "/products",
+    });
+  });
+};
+
 const getCart = (req, res, next) => {
   Product.fetchAllProduct((products) => {
     res.render("shop/cart", {
@@ -28,6 +39,11 @@ const getCart = (req, res, next) => {
       path: "/cart",
     });
   });
+};
+
+const postCart = (req, res, next) => {
+  console.log("postCart=>>>", req.body.id);
+  res.redirect('/');
 };
 
 const getCheckout = (req, res, next) => {
@@ -43,6 +59,8 @@ const getCheckout = (req, res, next) => {
 module.exports = {
   getIndex: getIndex,
   getProducts: getProducts,
+  getSingleProduct: getSingleProduct,
   getCart: getCart,
+  postCart: postCart,
   getCheckout: getCheckout,
 };

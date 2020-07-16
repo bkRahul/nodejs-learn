@@ -10,7 +10,7 @@ const getAddProduct = (req, res, next) => {
 };
 
 const postAddProduct = (req, res, next) => {
-  const product = new Product(req.body.title);
+  const product = new Product(req.body.title, req.body.imageUrl, req.body.description, req.body.price);
   product.saveProduct();
   res.redirect("/");
 };

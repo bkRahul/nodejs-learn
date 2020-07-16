@@ -4,11 +4,15 @@ const fs = require("fs");
 const util = require("../utils/util");
 
 class Product {
-  constructor(title) {
+  constructor(title, imageUrl, description, price) {
     this.title = title;
+    this.imageUrl = imageUrl;
+    this.description = description;
+    this.price = price;
   }
 
   saveProduct() {
+    this.id = new Date().getTime().toString();
     const dirPath = path.join(util.rootDir, "productsData");
     const filePath = path.join(util.rootDir, "productsData", "products.json");
 
@@ -40,6 +44,25 @@ class Product {
       cb(JSON.parse(data));
     });
   }
+
+  static fetchSingleProduct(id, cb) {
+    const filePath = path.join(util.rootDir, "productsData", "products.json");
+    fs.readFile(filePath, "utf8", (err, data) => {
+      if (err) {
+        cb([]);
+      }
+
+      let parsedArray = JSON.parse(data);
+      console.log("fetchSingleProduct parsedArray=>>",parsedArray);
+
+      let product = parsedArray.find(item => item.id === id);
+      console.log("fetchSingleProduct product=>>",product);
+
+      cb(product);
+    });
+  }
+
+
 }
 
 module.exports = Product;
