@@ -4,7 +4,9 @@
   "description": "Learning node js",
   "main": "app.js",
   "scripts": {
-    "dev": "nodemon --inspect app.js",
+    "build-css": "node-sass --watch scss -o public/css",
+    "start-nodemon": "nodemon --inspect app.js",
+    "dev": "npm-run-all --parallel build-css start-nodemon",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
@@ -13,6 +15,7 @@
   "dependencies": {
     "body-parser": "^1.19.0",
     "express": "^4.17.1",
+    "node-sass": "^4.14.1",
     "nodemon": "^2.0.2",
     "pug": "^3.0.0"
   }

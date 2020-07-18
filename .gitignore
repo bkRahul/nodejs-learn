@@ -1,3 +1,5 @@
 node_modules
 package-lock.json
-productsData/products.json
+database/products.json
+database/cart.json
+
