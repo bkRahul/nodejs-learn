@@ -1,0 +1,121 @@
+/* 
+* Design by Robert Mayer:https://goo.gl/CJ7yC8
+*
+*/
+
+/*
+------------Imports------------------
+*/
+
+@import "base/imports";
+
+/*
+------------Placeholders------------------
+*/
+
+@import "base/placeholders";
+
+/*
+------------Variables------------------
+*/
+
+@import "base/variables";
+
+body {
+  font-family: $body-font;
+  @extend %background-gradient;
+}
+
+.productcard {
+  @extend %d-flex;
+  width: 650px;
+  border-radius: 10px;
+  position: absolute;
+  background: white;
+  margin: 0 auto;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);
+
+  &:hover {
+    box-shadow: 0 8px 17px 0 rgba(0, 0, 0, 0.2),
+      0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  }
+
+  .product-img {
+    height: 400px;
+    width: 50%;
+
+    img {
+      border-radius: 10px 0 0 10px;
+    }
+  }
+  .product-info {
+    @extend %d-flex;
+    padding: 0 0 0 38px;
+    justify-content: flex-start;
+    height: 400px;
+    width: 50%;
+
+    .product-text {
+      h1 {
+        font-size: 34px;
+        color: #474747;
+      }
+
+      h2 {
+        margin: 0 0 47px 38px;
+        font-size: 13px;
+        font-weight: 400;
+        text-transform: uppercase;
+        color: #d2d2d2;
+        letter-spacing: 0.2em;
+      }
+
+      p {
+        height: 125px;
+        color: #8d8d8d;
+        line-height: 1.7em;
+        font-size: 15px;
+        font-weight: lighter;
+        overflow: hidden;
+      }
+    }
+  }
+}
+
+.product-price-btn {
+  @extend %d-flex;
+
+  p {
+    height: 50px;
+    font-size: 28px;
+    font-weight: lighter;
+    color: #474747;
+
+    span {
+      font-family: $open-sans;
+      font-size: 34px;
+    }
+  }
+
+  button {
+    height: 50px;
+    width: 165px;
+    margin: 0 0px 0 20px;
+    border: transparent;
+    border-radius: 60px;
+    font-size: 14px;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    color: #ffffff;
+    background-color: #9cebd5;
+    cursor: pointer;
+    outline: none;
+    &:hover {
+      background-color: #79b0a1;
+    }
+  }
+}

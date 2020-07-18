@@ -1,0 +1,23 @@
+extends ../layouts/main-layout.pug
+
+block styles
+    link(rel="stylesheet", href="/css/product-detail.css")
+
+block content
+    main.centered
+        if productData
+            .productcard
+                .product-img
+                    img(src=productData.imageUrl, alt=productData.title, height="400", width="327")
+                .product-info
+                    .product-text
+                        h1 #{productData.title}
+                        p #{productData.description}
+                    .product-price-btn
+                        p
+                            span #{productData.price}$
+                        form(action="/cart", method="POST")
+                            input(type="hidden", name="id" value=productData.id)
+                            button.btn Add to Cart
+        else
+            h1 Could not fetch product details
