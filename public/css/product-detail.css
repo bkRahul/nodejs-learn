@@ -21,7 +21,7 @@ This is the sass placeholders base file for the node cart
 body {
   background: #aedaa6; }
 
-.productcard, .productcard .product-info, .product-price-btn {
+.productcard, .productcard .product-img, .productcard .product-info, .product-price-btn {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -58,9 +58,10 @@ body {
     height: 400px;
     width: 50%; }
     .productcard .product-img img {
+      width: 80%;
       border-radius: 10px 0 0 10px; }
   .productcard .product-info {
-    padding: 0 0 0 38px;
+    padding: 0 22px 0 12px;
     justify-content: flex-start;
     height: 400px;
     width: 50%; }

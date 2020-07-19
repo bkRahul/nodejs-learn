@@ -44,16 +44,18 @@ body {
   }
 
   .product-img {
+    @extend %d-flex;
     height: 400px;
     width: 50%;
 
     img {
+      width: 80%;
       border-radius: 10px 0 0 10px;
     }
   }
   .product-info {
     @extend %d-flex;
-    padding: 0 0 0 38px;
+    padding: 0 22px 0 12px;
     justify-content: flex-start;
     height: 400px;
     width: 50%;

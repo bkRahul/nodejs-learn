@@ -12,14 +12,12 @@ block content
                         header.card__header
                             h1.product__title #{product.title}
                         div.card__image
-                            img(src=product.imageUrl, alt=product.title)
+                            img(src=#{product.imageUrl}, alt=#{product.title})
                         div.card__content
                             h2.product__price $ #{product.price}
                             p.product__description #{product.description}
-                        .card__actions
-                            a(href="/products/" + product.id).btn Details
-                            form(action="/cart", method="POST")
-                                input(type="hidden", name="id" value=product.id)
-                                button.btn Add to Cart
+                        form(action="/cart", method="POST")
+                            input(type="hidden", name="id" value=productData.id)
+                            button.btn Add to Cart
         else
             h1 No Products

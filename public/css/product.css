@@ -7,6 +7,8 @@
 .product-item {
     width: 20rem;
     max-width: 95%;
+    padding: 0 0 1rem 0;
+    margin: 0 0 2rem 0;
 }
 
 .product__title {
@@ -22,4 +24,14 @@
 
 .product__description {
     text-align: center;
+}
+
+.product__img {
+    text-align: center;
+}
+
+.flex {
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
