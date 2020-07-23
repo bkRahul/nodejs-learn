@@ -1,30 +1,26 @@
-"use strict";
-
 module.exports = (sequelize, DataTypes) => {
-  let Product = sequelize.define("product", {
+  let User = sequelize.define("user", {
     id: {
       type: DataTypes.INTEGER,
       autoIncrement: true,
       allowNull: false,
       primaryKey: true,
     },
-    title: {
+    name: {
+      type: DataTypes.STRING,
+    },
+    email: {
       type: DataTypes.STRING,
       allowNull: false,
     },
-    price: {
-      type: DataTypes.DOUBLE,
+    createdAt: {
       allowNull: false,
+      type: DataTypes.DATE,
     },
-
-    imageUrl: {
-      type: DataTypes.STRING,
+    updatedAt: {
       allowNull: false,
-    },
-    description: {
-      type: DataTypes.STRING,
-      allowNull: false,
+      type: DataTypes.DATE,
     },
   });
-  return Product;
+  return User;
 };

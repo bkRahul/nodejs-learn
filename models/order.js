@@ -1,7 +1,7 @@
 "use strict";
 
 module.exports = (sequelize, DataTypes) => {
-  let Cart = sequelize.define("cart", {
+  let Order = sequelize.define("order", {
     id: {
       type: DataTypes.INTEGER,
       autoIncrement: true,
@@ -9,5 +9,5 @@ module.exports = (sequelize, DataTypes) => {
       primaryKey: true,
     }
   });
-  return Cart;
+  return Order;
 };
