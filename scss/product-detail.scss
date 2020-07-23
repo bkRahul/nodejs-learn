@@ -56,13 +56,12 @@ body {
   .product-info {
     @extend %d-flex;
     padding: 0 22px 0 12px;
-    justify-content: flex-start;
     height: 400px;
     width: 50%;
 
     .product-text {
       h1 {
-        font-size: 34px;
+        font-size: 28px;
         color: #474747;
       }
 
@@ -91,24 +90,23 @@ body {
   @extend %d-flex;
 
   p {
-    height: 50px;
     font-size: 28px;
     font-weight: lighter;
     color: #474747;
 
     span {
       font-family: $open-sans;
-      font-size: 34px;
+      font-size: 26px;
     }
   }
 
   button {
-    height: 50px;
-    width: 165px;
+    height: 42px;
+    width: 150px;
     margin: 0 0px 0 20px;
     border: transparent;
     border-radius: 60px;
-    font-size: 14px;
+    font-size: 12px;
     font-weight: 500;
     text-transform: uppercase;
     letter-spacing: 0.2em;

@@ -62,11 +62,10 @@ body {
       border-radius: 10px 0 0 10px; }
   .productcard .product-info {
     padding: 0 22px 0 12px;
-    justify-content: flex-start;
     height: 400px;
     width: 50%; }
     .productcard .product-info .product-text h1 {
-      font-size: 34px;
+      font-size: 28px;
       color: #474747; }
     .productcard .product-info .product-text h2 {
       margin: 0 0 47px 38px;
@@ -84,21 +83,20 @@ body {
       overflow: hidden; }
 
 .product-price-btn p {
-  height: 50px;
   font-size: 28px;
   font-weight: lighter;
   color: #474747; }
   .product-price-btn p span {
     font-family: "Open Sans", sans-serif;
-    font-size: 34px; }
+    font-size: 26px; }
 
 .product-price-btn button {
-  height: 50px;
-  width: 165px;
+  height: 42px;
+  width: 150px;
   margin: 0 0px 0 20px;
   border: transparent;
   border-radius: 60px;
-  font-size: 14px;
+  font-size: 12px;
   font-weight: 500;
   text-transform: uppercase;
   letter-spacing: 0.2em;
