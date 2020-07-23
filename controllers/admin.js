@@ -1,4 +1,5 @@
-const Product = require("../models/product");
+var models = require("../models");
+var Product = models.product;
 
 const getAddProduct = (req, res, next) => {
   //accepts data as object which is passed to the template
@@ -11,59 +12,97 @@ const getAddProduct = (req, res, next) => {
 };
 
 const postAddProduct = (req, res, next) => {
-  const product = new Product(
-    null,
-    req.body.title,
-    req.body.imageUrl,
-    req.body.description,
-    req.body.price
-  );
-  product.saveProduct();
-  res.redirect("/");
+  //createProduct association method provided by sequelize based on relation
+  req.user
+    .createProduct({
+      title: req.body.title,
+      imageUrl: req.body.imageUrl,
+      description: req.body.description,
+      price: req.body.price,
+    })
+    .then(() => {
+      res.redirect("/");
+    })
+    .catch((err) => {
+      console.log(err);
+    });
 };
 
 const getEditProduct = (req, res, next) => {
   const id = req.params.id;
   const editMode = req.query.edit === "true" ? true : false;
-
-  Product.findById(id, (product) => {
-    res.render("admin/edit-product", {
-      productData: product,
-      pageTitle: "Edit Product",
-      path: "/admin/edit-product",
-      editing: editMode,
+  if (!editMode) {
+    res.redirect("/");
+  }
+  req.user
+    .getProducts({
+      where: {
+        id: id,
+      },
+    })
+    .then((product) => {
+      res.render("admin/edit-product", {
+        productData: product[0],
+        pageTitle: "Edit Product",
+        path: "/admin/edit-product",
+        editing: editMode,
+      });
+    })
+    .catch((err) => {
+      console.log(err);
     });
-  });
 };
 
 const postEditProduct = (req, res, next) => {
-  const product = new Product(
-    req.body.id,
-    req.body.title,
-    req.body.imageUrl,
-    req.body.description,
-    req.body.price
-  );
-  product.saveProduct();
-  res.redirect("/admin/products");
+  const id = req.body.id;
+  const editedProduct = {
+    title: req.body.title,
+    imageUrl: req.body.imageUrl,
+    description: req.body.description,
+    price: req.body.price,
+  };
+  Product.update(editedProduct, {
+    where: {
+      id: id,
+    },
+  })
+    .then(() => {
+      res.redirect("/admin/products");
+    })
+    .catch((err) => {
+      console.log(err);
+    });
 };
 
 const deleteProduct = (req, res, next) => {
   const id = req.params.id;
-  Product.deleteProduct(id)
-  res.redirect("/admin/products");
+  Product.destroy({
+    where: {
+      id: id,
+    },
+  })
+    .then(() => {
+      res.redirect("/admin/products");
+    })
+    .catch((err) => {
+      console.log(err);
+    });
 };
 
 const getProducts = (req, res, next) => {
-  Product.fetchAllProduct((products) => {
-    res.render("admin/products", {
-      productData: products,
-      pageTitle: "Admin Products",
-      path: "/admin/products",
+  req.user
+    .getProducts()
+    .then((products) => {
+      res.render("admin/products", {
+        productData: products,
+        pageTitle: "Admin Products",
+        path: "/admin/products",
+      });
+    })
+    .catch((err) => {
+      console.log(err);
     });
-  });
 };
-
 
 module.exports = {
   getAddProduct: getAddProduct,
