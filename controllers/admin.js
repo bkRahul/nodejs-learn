@@ -7,26 +7,24 @@ const getAddProduct = (req, res, next) => {
     path: "/admin/add-product",
     editing: false,
   });
-  //  res.sendFile(path.join(__dirname, '../', 'views', 'add-product.html'));
 };
 
 const postAddProduct = (req, res, next) => {
   const product = new Product(
-    null,
+    req.body.id,
     req.body.title,
     req.body.imageUrl,
     req.body.description,
     req.body.price
   );
-  product.saveProduct();
-  res.redirect("/");
+  product.saveProduct().then(() => res.redirect("/"));
 };
 
 const getEditProduct = (req, res, next) => {
   const id = req.params.id;
   const editMode = req.query.edit === "true" ? true : false;
 
-  Product.findById(id, (product) => {
+  Product.findById(id).then((product) => {
     res.render("admin/edit-product", {
       productData: product,
       pageTitle: "Edit Product",
@@ -44,18 +42,18 @@ const postEditProduct = (req, res, next) => {
     req.body.description,
     req.body.price
   );
-  product.saveProduct();
-  res.redirect("/admin/products");
+  product.saveProduct().then(() => {
+    res.redirect("/admin/products");
+  });
 };
 
 const deleteProduct = (req, res, next) => {
   const id = req.params.id;
-  Product.deleteProduct(id)
-  res.redirect("/admin/products");
+  Product.deleteProduct(id).then(() => res.redirect("/admin/products"));
 };
 
 const getProducts = (req, res, next) => {
-  Product.fetchAllProduct((products) => {
+  Product.fetchAllProduct().then((products) => {
     res.render("admin/products", {
       productData: products,
       pageTitle: "Admin Products",
@@ -63,7 +61,6 @@ const getProducts = (req, res, next) => {
     });
   });
 };
-
 
 module.exports = {
   getAddProduct: getAddProduct,
