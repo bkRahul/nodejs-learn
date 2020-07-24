@@ -5,7 +5,7 @@ const bodyParser = require("body-parser");
 const adminRoutes = require("./routes/admin");
 const shopRoutes = require("./routes/shop");
 const errorController = require("./controllers/error");
-const mongoConnect = require("./utils/database");
+const mongoConnect = require("./utils/database").mongoConnect;
 
 const app = express();
 
@@ -28,8 +28,7 @@ app.use(shopRoutes);
 //a 404 page for non matching routes
 app.use(errorController.get404);
 
-mongoConnect((client) => {
-  console.log(client);
+mongoConnect(() => {
   app.listen(3001, () => {
     console.log("server is running");
   });
