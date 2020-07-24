@@ -8,7 +8,7 @@ block content
     main
         form.product-form(action=`/admin/${editing === true ? "edit-product" : "add-product"}`, method="POST")
             if editing === true
-                input(type="hidden", name="id" value=productData.id)
+                input(type="hidden", name="id" value=productData._id)
             .form-control
                 label(for="title") Title
                 input(type="text", name="title", value=(editing ? productData.title : ''))#title

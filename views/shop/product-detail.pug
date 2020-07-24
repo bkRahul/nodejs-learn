@@ -17,7 +17,7 @@ block content
                         p
                             span #{productData.price}$
                         form(action="/cart", method="POST")
-                            input(type="hidden", name="id" value=productData.id)
+                            input(type="hidden", name="id" value=productData._id)
                             button.btn Add to Cart
         else
             h1 Could not fetch product details
