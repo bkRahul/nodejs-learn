@@ -19,7 +19,7 @@ block content
                         .card__actions
                             a(href="/products/" + product._id).btn Details
                             form(action="/cart", method="POST")
-                                input(type="hidden", name="id" value=product.id)
+                                input(type="hidden", name="id" value=product._id)
                                 button.btn Add to Cart
         else
             h1 No Products
