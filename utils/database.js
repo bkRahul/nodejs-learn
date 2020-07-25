@@ -5,6 +5,7 @@ let _db;
 const uri =
   "mongodb+srv://rahul:root@nodejs-learn.ffvda.mongodb.net/shop?retryWrites=true&w=majority";
 
+//start a connection  
 const mongoConnect = (cb) => {
   MongoClient.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true })
     .then((client) => {
@@ -17,6 +18,7 @@ const mongoConnect = (cb) => {
     });
 };
 
+//get database info
 const getDb = () => {
   if (_db) {
     return _db;

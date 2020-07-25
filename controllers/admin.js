@@ -10,8 +10,10 @@ const getAddProduct = (req, res, next) => {
 };
 
 const postAddProduct = (req, res, next) => {
+  console.log("req.user===>", req.user);
   const product = new Product(
-    req.body.id,
+    null,
+    req.user._id,
     req.body.title,
     req.body.imageUrl,
     req.body.description,
@@ -37,6 +39,7 @@ const getEditProduct = (req, res, next) => {
 const postEditProduct = (req, res, next) => {
   const product = new Product(
     req.body.id,
+    req.user._id,
     req.body.title,
     req.body.imageUrl,
     req.body.description,
