@@ -5,19 +5,14 @@ block styles
 
 block content
     main
-        if productData.length > 0
+        if orderData.length > 0
             .grid
-                each product in productData
+                each order in orderData
                     article.card.product-item
                         header.card__header
-                            h1.product__title #{product.title}
-                        div.card__image
-                            img(src=#{product.imageUrl}, alt=#{product.title})
-                        div.card__content
-                            h2.product__price $ #{product.price}
-                            p.product__description #{product.description}
-                        form(action="/cart", method="POST")
-                            input(type="hidden", name="id" value=productData.id)
-                            button.btn Add to Cart
+                            h1.product__title #{order._id}
+                        each items in order.products
+                            div.card__content
+                                h2.product__price #{items.product.description}
         else
-            h1 No Products
+            h1 No order

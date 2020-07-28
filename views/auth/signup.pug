@@ -1,0 +1,26 @@
+extends ../layouts/main-layout.pug
+
+block styles
+    link(rel="stylesheet", href="/css/auth.css")
+
+block content
+    main.centered
+            .logincard
+                .login-bg.signup-bg
+                .login-img
+                    img(src='/images/shoe.png', alt='login')
+                .login-info
+                    .login-text
+                        h1 Signup
+                    .loginForm.signupForm
+                        form(action="/auth/signup", method="POST")
+                            input(type="hidden", name="id" )
+                            label(for="name") Name
+                            input(type="text", name="name" )
+                            label(for="email") Email
+                            input(type="email", name="email" )
+                            label(for="password") Password
+                            input(type="password", name="password" )
+                            label(for="confirmPwd") Confirm Password
+                            input(type="password", name="confirmPwd" )
+                            button Signup

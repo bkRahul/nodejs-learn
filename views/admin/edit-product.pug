@@ -21,4 +21,4 @@ block content
             .form-control
                 label(for="price") Price
                 input(type="number", name="price", value=(editing ? productData.price : ''))#price
-            button.btn(type="submit") #{editing === true ? "Save Changes" : "Add Product"}
+            button(type="submit") #{editing === true ? "Save Changes" : "Add Product"}

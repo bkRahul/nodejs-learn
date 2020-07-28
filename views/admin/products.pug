@@ -19,6 +19,6 @@ block content
                         .card__actions
                             a(href="/admin/edit-product/"+ product.id +"?edit=true").btn Edit
                             form(action="/admin/delete-product/"+ product.id, method="POST")
-                                button.btn Delete
+                                button Delete
         else
             h1 No Products

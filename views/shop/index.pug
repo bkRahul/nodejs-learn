@@ -16,8 +16,11 @@ block content
                         div.card__content
                             h2.product__price $ #{product.price}
                             p.product__description #{product.description}
-                        form(action="/cart", method="POST").flex
-                            input(type="hidden", name="id" value=product.id)
-                            button.btn Add to Cart
+                        .card__actions
+                            a(href="/products/" + product.id).btn Details
+                        if isAuth    
+                            form(action="/cart", method="POST")
+                                input(type="hidden", name="id" value=product.id)
+                                button Add to Cart
         else
             h1 No Products

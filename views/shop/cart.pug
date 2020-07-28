@@ -10,14 +10,19 @@ block content
                 each product in cartData
                     article.card.product-item
                         header.card__header
-                            h1.product__title #{product.productData.title}
+                            h1.product__title #{product.productId.title} 
+                            h4.product__title  Qty: #{product.quantity} 
                         div.card__image
-                            img(src=product.productData.imageUrl, alt=product.productData.title)
+                            img(src=product.productId.imageUrl, alt=product.productId.title)
                         div.card__content
-                            h2.product__price $ #{product.productData.price}
-                            p.product__description #{product.productData.description}
+                            h2.product__price $ #{product.productId.price}
+                            //-h2.product__price #{product.cartItem.quantity}
+                            p.product__description #{product.productId.description}
                         form(action="/delete-cart-item", method="POST").flex
-                            input(type="hidden", name="id" value=product.productData.id)
-                            button.btn Delete from Cart
+                            input(type="hidden", name="id" value=product.productId._id)
+                            button Delete from Cart
+            div
+                form(action="/checkout", method="POST").flex
+                    button Checkout
         else
             h1 No Products

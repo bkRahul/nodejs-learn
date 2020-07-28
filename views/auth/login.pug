@@ -1,0 +1,22 @@
+extends ../layouts/main-layout.pug
+
+block styles
+    link(rel="stylesheet", href="/css/auth.css")
+
+block content
+    main.centered
+            .logincard
+                .login-bg
+                .login-img
+                    img(src='/images/login.png', alt='login')
+                .login-info
+                    .login-text
+                        h1 Login
+                    .loginForm    
+                        form(action="/auth/login", method="POST")
+                            input(type="hidden", name="id" )
+                            label(for="email") Email
+                            input(type="email", name="email" )
+                            label(for="password") Password
+                            input(type="password", name="password" )
+                            button Login
