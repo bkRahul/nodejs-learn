@@ -1,79 +1,122 @@
 const Product = require("../models/product");
 const Cart = require("../models/cart");
+const Order = require("../models/order");
 
 const getIndex = (req, res, next) => {
-  Product.fetchAllProduct((products) => {
+  Product.find().then((products) => {
     res.render("shop/index", {
       productData: products,
       pageTitle: "Shop",
       path: "/",
+      isAuth: req.session.isLoggedIn
     });
   });
 };
 
 const getProducts = (req, res, next) => {
-  Product.fetchAllProduct((products) => {
+  Product.find().then((products) => {
     res.render("shop/products", {
       productData: products,
       pageTitle: "All Products",
       path: "/products",
+      isAuth: req.session.isLoggedIn
     });
   });
 };
 
 const getSingleProduct = (req, res, next) => {
   const id = req.params.id;
-  Product.findById(id, (product) => {
+  Product.findById(id).then((product) => {
     res.render("shop/product-detail", {
       productData: product,
       pageTitle: "Single Products",
       path: "/products",
+      isAuth: req.session.isLoggedIn
     });
   });
 };
 
+//get cart items
 const getCart = (req, res, next) => {
-  let cartProducts = [];
-  Cart.fetchCart((cart) => {
-    Product.fetchAllProduct((products) => {
-      for (const product of products) {
-        const cartProduct = cart.products.find(
-          (item) => item.id === product.id
-        );
-        if (cartProduct) {
-          cartProducts.push({ productData: product, qty: cartProduct.qty });
-        }
-      }
-      console.log("cart=>>>", cartProducts);
+  req.user
+    .populate("cart.items.productId")
+    .execPopulate()
+    .then((user) => {
+      console.log("cartProducts=>>>", user.cart.items);
       res.render("shop/cart", {
-        cartData: cartProducts,
+        cartData: user.cart.items,
         pageTitle: "Cart",
         path: "/cart",
+        isAuth: req.session.isLoggedIn
       });
     });
-  });
 };
 
+//add item to cart
 const postCart = (req, res, next) => {
-  Product.findById(req.body.id, (product) => {
-    Cart.addProduct(req.body.id, product.price);
-  });
-  res.redirect("/cart");
+  Product.findById(req.body.id)
+    .then((product) => {
+      return req.user.addToCart(product);
+    })
+    .then((result) => {
+      console.log("postCart=>>>", result);
+      res.redirect("/cart");
+    })
+    .catch((err) => console.log(err));
 };
 
+//delete item from cart
 const deleteCartItem = (req, res, next) => {
-  Product.findById(req.body.id, (product) => {
-    Cart.deleteProduct(req.body.id, product.price);
-  });
-  res.redirect("/cart");
+  req.user
+    .deleteFromCart(req.body.id)
+    .then((result) => {
+      res.redirect("/cart");
+    })
+    .catch((err) => {
+      console.log(err);
+    });
 };
 
-const getCheckout = (req, res, next) => {
-  Product.fetchAllProduct((products) => {
-    res.render("shop/checkout", {
-      productData: products,
-      pageTitle: "Checkout",
-      path: "/checkout",
+//checkout
+const checkout = (req, res, next) => {
+  req.user
+    .populate("cart.items.productId")
+    .execPopulate()
+    .then((user) => {
+      const products = user.cart.items.map((item) => {
+        return {
+          product: { ...item.productId._doc },
+          quantity: item.quantity,
+        };
+      });
+      const order = new Order({
+        products: products,
+        user: {
+          name: req.user.name,
+          userId: req.user,
+        },
+      });
+      return order.save();
+    })
+    .then(() => {
+      return req.user.clearCart();
+    })
+    .then(() => {
+      res.redirect("/orders");
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+};
+
+const getOrders = (req, res, next) => {
+  Order.find({ "user.userId": req.user._id }).then((orders) => {
+    console.log("orders=>>>", orders);
+    res.render("shop/orders", {
+      orderData: orders,
+      pageTitle: "Orders",
+      path: "/orders",
+      isAuth: req.session.isLoggedIn
     });
   });
 };
@@ -85,5 +128,6 @@ module.exports = {
   getCart: getCart,
   postCart: postCart,
   deleteCartItem: deleteCartItem,
-  getCheckout: getCheckout,
+  checkout: checkout,
+  getOrders: getOrders,
 };
