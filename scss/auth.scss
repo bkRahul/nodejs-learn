@@ -29,10 +29,10 @@
 
 body {
   font-family: $body-font;
-  @extend %background-gradient;
+  @extend %background-gradient-login;
 }
 
-.productcard {
+.logincard {
   @extend %d-flex;
   width: 650px;
   border-radius: 10px;
@@ -41,6 +41,7 @@ body {
   margin: 0 auto;
   top: 50%;
   left: 50%;
+  overflow: hidden;
   transform: translate(-50%, -50%);
   transition: all 0.2s;
   box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);
@@ -49,25 +50,39 @@ body {
     box-shadow: 0 8px 17px 0 rgba(0, 0, 0, 0.2),
       0 6px 20px 0 rgba(0, 0, 0, 0.19);
   }
-
-  .product-img {
+  .login-bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 200%;
+    width: 85%;
+    background-color: #fbcf34;
+    border-radius: 50%;
+    -webkit-transform: translateX(-50%) translateY(-25%);
+    transform: translateX(-50%) translateY(-25%);
+  }
+  .signup-bg {
+    background-color:#252831;
+  }
+  .login-img {
     @extend %d-flex;
+    justify-content: flex-start;
+    padding-left: 1.5rem;
     height: 400px;
     width: 50%;
 
     img {
-      width: 80%;
-      border-radius: 10px 0 0 10px;
+      position: absolute;
+      width: 32%;
     }
   }
-  .product-info {
-    @extend %d-flex;
-    padding: 0 22px 0 12px;
+  .login-info {
+    padding: 20px 30px;
     justify-content: flex-start;
     height: 400px;
     width: 50%;
 
-    .product-text {
+    .login-text {
       h1 {
         font-size: 34px;
         color: #474747;
@@ -91,40 +106,39 @@ body {
         overflow: hidden;
       }
     }
-  }
-}
 
-.product-price-btn {
-  @extend %d-flex;
+    .loginForm {
+      margin-top: 4rem;
 
-  p {
-    height: 50px;
-    font-size: 28px;
-    font-weight: lighter;
-    color: #474747;
-
-    span {
-      font-family: $open-sans;
-      font-size: 34px;
+      label {
+        position: relative;
+        display: block;
+        text-transform: uppercase;
+        font-weight: 600;
+        font-size: 11px;
+        letter-spacing: 0.5px;
+        color: #939393;
+      }
+      button {
+        margin-top: 1rem;
+        cursor: pointer;
+        color: #ffffff;
+        background-color: #24cf5f;
+        padding: 12px 25px;
+        font-size: 12px;
+        letter-spacing: 1px;
+        text-transform: uppercase;
+        border: 0;
+        border-radius: 2px;
+        outline: 0;
+        box-shadow: 3px 3px 20px rgba(0, 0, 0, 0.2);
+        -webkit-transition: all .2s;
+        transition: all .2s;
+    
+      }
     }
-  }
-
-  button {
-    height: 50px;
-    width: 165px;
-    margin: 0 0px 0 20px;
-    border: transparent;
-    border-radius: 60px;
-    font-size: 14px;
-    font-weight: 500;
-    text-transform: uppercase;
-    letter-spacing: 0.2em;
-    color: #ffffff;
-    background-color: #9cebd5;
-    cursor: pointer;
-    outline: none;
-    &:hover {
-      background-color: #79b0a1;
+    .signupForm {
+      margin-top: 1rem;
     }
   }
 }

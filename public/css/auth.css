@@ -19,9 +19,9 @@ This is the sass placeholders base file for the node cart
 ------------Placeholder------------------
 */
 body {
-  background: #aedaa6; }
+  background: #f0f0f0; }
 
-.productcard, .productcard .product-img, .productcard .product-info, .product-price-btn {
+.logincard, .logincard .login-img {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -56,7 +56,7 @@ input[type=email], input[type=text], input[type=password] {
 body {
   font-family: "Raleway", "Helvetica Neue", Arial, Verdana, sans-serif; }
 
-.productcard {
+.logincard {
   width: 650px;
   border-radius: 10px;
   position: absolute;
@@ -64,62 +64,78 @@ body {
   margin: 0 auto;
   top: 50%;
   left: 50%;
+  overflow: hidden;
   transform: translate(-50%, -50%);
   transition: all 0.2s;
   box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12); }
-  .productcard:hover {
+  .logincard:hover {
     box-shadow: 0 8px 17px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19); }
-  .productcard .product-img {
+  .logincard .login-bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 200%;
+    width: 85%;
+    background-color: #fbcf34;
+    border-radius: 50%;
+    -webkit-transform: translateX(-50%) translateY(-25%);
+    transform: translateX(-50%) translateY(-25%); }
+  .logincard .signup-bg {
+    background-color: #252831; }
+  .logincard .login-img {
+    justify-content: flex-start;
+    padding-left: 1.5rem;
     height: 400px;
     width: 50%; }
-    .productcard .product-img img {
-      width: 80%;
-      border-radius: 10px 0 0 10px; }
-  .productcard .product-info {
-    padding: 0 22px 0 12px;
+    .logincard .login-img img {
+      position: absolute;
+      width: 32%; }
+  .logincard .login-info {
+    padding: 20px 30px;
     justify-content: flex-start;
     height: 400px;
     width: 50%; }
-    .productcard .product-info .product-text h1 {
+    .logincard .login-info .login-text h1 {
       font-size: 34px;
       color: #474747; }
-    .productcard .product-info .product-text h2 {
+    .logincard .login-info .login-text h2 {
       margin: 0 0 47px 38px;
       font-size: 13px;
       font-weight: 400;
       text-transform: uppercase;
       color: #d2d2d2;
       letter-spacing: 0.2em; }
-    .productcard .product-info .product-text p {
+    .logincard .login-info .login-text p {
       height: 125px;
       color: #8d8d8d;
       line-height: 1.7em;
       font-size: 15px;
       font-weight: lighter;
       overflow: hidden; }
-
-.product-price-btn p {
-  height: 50px;
-  font-size: 28px;
-  font-weight: lighter;
-  color: #474747; }
-  .product-price-btn p span {
-    font-family: "Open Sans", sans-serif;
-    font-size: 34px; }
-
-.product-price-btn button {
-  height: 50px;
-  width: 165px;
-  margin: 0 0px 0 20px;
-  border: transparent;
-  border-radius: 60px;
-  font-size: 14px;
-  font-weight: 500;
-  text-transform: uppercase;
-  letter-spacing: 0.2em;
-  color: #ffffff;
-  background-color: #9cebd5;
-  cursor: pointer;
-  outline: none; }
-  .product-price-btn button:hover {
-    background-color: #79b0a1; }
+    .logincard .login-info .loginForm {
+      margin-top: 4rem; }
+      .logincard .login-info .loginForm label {
+        position: relative;
+        display: block;
+        text-transform: uppercase;
+        font-weight: 600;
+        font-size: 11px;
+        letter-spacing: 0.5px;
+        color: #939393; }
+      .logincard .login-info .loginForm button {
+        margin-top: 1rem;
+        cursor: pointer;
+        color: #ffffff;
+        background-color: #24cf5f;
+        padding: 12px 25px;
+        font-size: 12px;
+        letter-spacing: 1px;
+        text-transform: uppercase;
+        border: 0;
+        border-radius: 2px;
+        outline: 0;
+        box-shadow: 3px 3px 20px rgba(0, 0, 0, 0.2);
+        -webkit-transition: all .2s;
+        transition: all .2s; }
+    .logincard .login-info .signupForm {
+      margin-top: 1rem; }
