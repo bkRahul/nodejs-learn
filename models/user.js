@@ -18,6 +18,8 @@ const userSchema = new Schema({
       },
     ],
   },
+  resetToken: { type: String },
+  resetTokenExpiration: { type: Number }
 });
 
 //add to cart

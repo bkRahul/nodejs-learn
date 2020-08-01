@@ -1,0 +1,22 @@
+extends ../layouts/main-layout.pug
+
+block styles
+    link(rel="stylesheet", href="/css/auth.css")
+
+block content
+    main.centered
+            .logincard
+                .login-bg
+                .login-img
+                    img(src='/images/login.png', alt='login')
+                .login-info
+                    .login-text
+                        h1 Reset Password
+                    .loginForm
+                        form(action="/auth/reset-password", method="POST")
+                            input(type="hidden", name="_csrf" value=csrfToken)
+                            label(for="email") Email
+                            input(type="email", name="email" )
+                            if errorMessage.length !== 0
+                                p.userMsg #{errorMessage}
+                            button Reset Password

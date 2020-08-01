@@ -1,0 +1,26 @@
+extends ../layouts/main-layout.pug
+
+block styles
+    link(rel="stylesheet", href="/css/auth.css")
+
+block content
+    main.centered
+            .logincard
+                .login-bg
+                .login-img
+                    img(src='/images/login.png', alt='login')
+                .login-info
+                    .login-text
+                        h1 Change Password
+                    .loginForm
+                        form(action="/auth/new-password", method="POST")
+                            input(type="hidden", name="_csrf" value=csrfToken)
+                            input(type="hidden", name="userId" value=userId)
+                            input(type="hidden", name="resetToken" value=resetToken)
+                            label(for="password") Password
+                            input(type="password", name="password" )
+                            label(for="confirmPwd") Confirm Password
+                            input(type="password", name="confirmPwd" )
+                            if errorMessage.length !== 0
+                                p.userMsg #{errorMessage}
+                            button Change Password
