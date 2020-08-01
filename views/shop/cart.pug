@@ -19,10 +19,12 @@ block content
                             //-h2.product__price #{product.cartItem.quantity}
                             p.product__description #{product.productId.description}
                         form(action="/delete-cart-item", method="POST").flex
+                            input(type="hidden", name="_csrf" value=csrfToken)
                             input(type="hidden", name="id" value=product.productId._id)
                             button Delete from Cart
             div
                 form(action="/checkout", method="POST").flex
+                    input(type="hidden", name="_csrf" value=csrfToken)
                     button Checkout
         else
             h1 No Products

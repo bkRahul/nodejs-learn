@@ -12,11 +12,15 @@ block content
                 .login-info
                     .login-text
                         h1 Login
-                    .loginForm    
+                    .loginForm
                         form(action="/auth/login", method="POST")
-                            input(type="hidden", name="id" )
+                            input(type="hidden", name="_csrf" value=csrfToken)
                             label(for="email") Email
                             input(type="email", name="email" )
                             label(for="password") Password
                             input(type="password", name="password" )
+                            small.userMsg Forgot Password Click here to 
+                                a(href="/auth/reset-password/") Reset
+                            if errorMessage.length !== 0
+                                p.userMsg #{errorMessage}
                             button Login

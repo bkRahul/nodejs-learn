@@ -17,6 +17,7 @@ block content
                         p
                             span #{productData.price}$
                         form(action="/cart", method="POST")
+                            input(type="hidden", name="_csrf" value=csrfToken)
                             input(type="hidden", name="id" value=productData.id)
                             button Add to Cart
         else

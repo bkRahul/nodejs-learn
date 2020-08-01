@@ -26,7 +26,8 @@ html(lang="en")
                             a(href="/admin/products", class=(path === '/admin/products' ? 'active' : '')) Admin Products
                 ul.main-header__item-list
                     if isAuth                        
-                        form(action="/auth/logout", method="POST")    
+                        form(action="/auth/logout", method="POST")
+                            input(type="hidden", name="_csrf" value=csrfToken)
                             li.main-header__item
                             button(type="submit") Logout
                     else
