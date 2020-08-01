@@ -1,16 +1,18 @@
 const Product = require("../models/product");
-const Cart = require("../models/cart");
 const Order = require("../models/order");
 
 const getIndex = (req, res, next) => {
-  Product.find().then((products) => {
-    res.render("shop/index", {
-      productData: products,
-      pageTitle: "Shop",
-      path: "/",
-      isAuth: req.session.isLoggedIn
+  Product.find()
+    .then((products) => {
+      res.render("shop/index", {
+        productData: products,
+        pageTitle: "Shop",
+        path: "/",
+      });
+    })
+    .catch((err) => {
+      console.log(err);
     });
-  });
 };
 
 const getProducts = (req, res, next) => {
@@ -19,7 +21,6 @@ const getProducts = (req, res, next) => {
       productData: products,
       pageTitle: "All Products",
       path: "/products",
-      isAuth: req.session.isLoggedIn
     });
   });
 };
@@ -31,7 +32,6 @@ const getSingleProduct = (req, res, next) => {
       productData: product,
       pageTitle: "Single Products",
       path: "/products",
-      isAuth: req.session.isLoggedIn
     });
   });
 };
@@ -47,7 +47,6 @@ const getCart = (req, res, next) => {
         cartData: user.cart.items,
         pageTitle: "Cart",
         path: "/cart",
-        isAuth: req.session.isLoggedIn
       });
     });
 };
@@ -116,7 +115,6 @@ const getOrders = (req, res, next) => {
       orderData: orders,
       pageTitle: "Orders",
       path: "/orders",
-      isAuth: req.session.isLoggedIn
     });
   });
 };
