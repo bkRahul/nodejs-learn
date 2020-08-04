@@ -16,11 +16,11 @@ block content
                         form(action="/auth/login", method="POST")
                             input(type="hidden", name="_csrf" value=csrfToken)
                             label(for="email") Email
-                            input(type="email", name="email" )
+                            input(type="email", name="email", value=oldInput.email )
                             label(for="password") Password
                             input(type="password", name="password" )
+                            if errorMessage.length !== 0
+                                p.userMsg #{errorMessage}                            
                             small.userMsg Forgot Password Click here to 
                                 a(href="/auth/reset-password/") Reset
-                            if errorMessage.length !== 0
-                                p.userMsg #{errorMessage}
                             button Login

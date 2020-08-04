@@ -1,6 +1,7 @@
 const bcrypt = require("bcryptjs");
 const nodemailer = require("nodemailer");
 const crypto = require("crypto");
+const { validationResult } = require("express-validator/check");
 
 const User = require("../models/user");
 
@@ -20,6 +21,7 @@ const getLogin = (req, res, next) => {
     pageTitle: "login",
     path: "/auth/login",
     errorMessage: req.flash("error"),
+    oldInput: {}
   });
 };
 
@@ -28,7 +30,15 @@ const postLogin = (req, res, next) => {
   //store user data in req object session
   const email = req.body.email;
   const password = req.body.password;
-
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    return res.status(422).render("auth/login", {
+      pageTitle: "login",
+      path: "/auth/login",
+      errorMessage: errors.array()[0].msg,
+      oldInput: { name, email },
+    });
+  }
   User.findOne({ email: email })
     .then((user) => {
       if (!user) {
@@ -65,6 +75,7 @@ const getSignup = (req, res, next) => {
     pageTitle: "signup",
     path: "/auth/signup",
     errorMessage: req.flash("error"),
+    oldInput: {}
   });
 };
 
@@ -73,11 +84,14 @@ const postSignup = (req, res, next) => {
   const name = req.body.name;
   const email = req.body.email;
   const password = req.body.password;
-  const confirmPwd = req.body.confirmPwd;
-
-  if (password !== confirmPwd) {
-    req.flash("error", "passwords do not match");
-    return res.redirect("/auth/signup");
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    return res.status(422).render("auth/signup", {
+      pageTitle: "signup",
+      path: "/auth/signup",
+      errorMessage: errors.array()[0].msg,
+      oldInput: { name, email },
+    });
   }
   User.findOne({ email: email })
     .then((user) => {
@@ -190,10 +204,10 @@ const postNewPassword = (req, res, next) => {
   const resetToken = req.body.resetToken;
   const password = req.body.password;
   const confirmPwd = req.body.confirmPwd;
-  console.log("userId=>>>", userId)
-  console.log("resetToken=>>>", resetToken)
-  console.log("password=>>>", password)
-  console.log("confirmPwd=>>>", confirmPwd)
+  console.log("userId=>>>", userId);
+  console.log("resetToken=>>>", resetToken);
+  console.log("password=>>>", password);
+  console.log("confirmPwd=>>>", confirmPwd);
   let resetUser;
   if (password !== confirmPwd) {
     req.flash("error", "passwords do not match");
@@ -206,15 +220,15 @@ const postNewPassword = (req, res, next) => {
     _id: userId,
   })
     .then((user) => {
-      console.log("user=>>>", user)
+      console.log("user=>>>", user);
       resetUser = user;
       return bcrypt.hash(confirmPwd, 12);
     })
     .then((hashedPwd) => {
-      console.log("hashedPwd=>>>", hashedPwd)
-      console.log("resetUser=>>>", resetUser)
-      console.log("resetUser.password=>>>", resetUser.password)
-      
+      console.log("hashedPwd=>>>", hashedPwd);
+      console.log("resetUser=>>>", resetUser);
+      console.log("resetUser.password=>>>", resetUser.password);
+
       resetUser.password = hashedPwd;
       resetUser.resetToken = undefined;
       resetUser.resetTokenExpiration = undefined;
