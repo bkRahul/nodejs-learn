@@ -11,6 +11,8 @@ block content
                     article.card.product-item
                         header.card__header
                             h1.product__title #{order._id}
+                        div
+                            a(href="/invoice/"+ order._id) Invoice                                
                         each items in order.products
                             div.card__content
                                 h2.product__price #{items.product.description}

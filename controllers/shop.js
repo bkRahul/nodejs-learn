@@ -1,5 +1,9 @@
+const path = require("path");
+const fs = require("fs");
+
 const Product = require("../models/product");
 const Order = require("../models/order");
+const { createInvoice } = require("../utils/invoiceTemplate");
 
 const getIndex = (req, res, next) => {
   Product.find()
@@ -92,6 +96,7 @@ const checkout = (req, res, next) => {
         products: products,
         user: {
           name: req.user.name,
+          email: req.user.email,
           userId: req.user,
         },
       });
@@ -119,6 +124,44 @@ const getOrders = (req, res, next) => {
   });
 };
 
+const getInvoice = (req, res, next) => {
+  
+  const orderId = req.params.orderId;
+
+  Order.findById(orderId)
+    .then((order) => {
+      if (!order) {
+        return next(new Error("Order not found"));
+      }
+      if (order.user.userId.toString() !== req.user._id.toString()) {
+        return next(new Error("Not Authorized"));
+      }
+      createInvoice(req, res, order);
+      //send the file by readFIle
+      // fs.readFile(invoiceFilePath, (err, data) => {
+      //   if (err) {
+      //     return next(err);
+      //   }
+      //   res.setHeader("Content-Type", "application/pdf");
+      //   res.setHeader(
+      //     "Content-Disposition",
+      //     'inline; filename="' + invoiceFile + '"'
+      //   );
+      //   res.send(data);
+      // });
+
+      //stream the data for bigger files
+      // const file = fs.createReadStream(invoiceFilePath);
+      // res.setHeader("Content-Type", "application/pdf");
+      // res.setHeader(
+      //   "Content-Disposition",
+      //   'inline; filename="' + invoiceFile + '"'
+      // );
+      // file.pipe(res);
+    })
+    .catch((err) => next(err));
+};
+
 module.exports = {
   getIndex: getIndex,
   getProducts: getProducts,
@@ -128,4 +171,5 @@ module.exports = {
   deleteCartItem: deleteCartItem,
   checkout: checkout,
   getOrders: getOrders,
+  getInvoice: getInvoice,
 };
