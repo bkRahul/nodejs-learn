@@ -3,4 +3,4 @@ package-lock.json
 database/products.json
 database/cart.json
 data/invoice
-
+public/images/products

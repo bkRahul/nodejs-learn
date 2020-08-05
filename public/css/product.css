@@ -35,3 +35,20 @@
     align-items: center;
     justify-content: center;
 }
+
+.pagination {
+    text-align: center;
+}
+
+.pagination a {
+    margin: 1rem;
+    text-decoration: none;
+    padding: 4px 8px;
+    border: 1px solid;
+}
+
+.pagination a:hover, .pagination a.active {
+    background-color: #4d4d4d;
+    color: #fff;
+    border: 1px solid #fff;
+}

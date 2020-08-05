@@ -5,13 +5,31 @@ const Product = require("../models/product");
 const Order = require("../models/order");
 const { createInvoice } = require("../utils/invoiceTemplate");
 
+const ITEMS_PER_PAGE = 2;
+
 const getIndex = (req, res, next) => {
+  const page = +req.query.page || 1;
+  let totalItems = 0;
   Product.find()
+    .countDocuments()
+    .then((prodNum) => {
+      totalItems = prodNum;
+      return Product.find()
+        .skip((page - 1) * ITEMS_PER_PAGE)
+        .limit(ITEMS_PER_PAGE);
+    })
+
     .then((products) => {
       res.render("shop/index", {
         productData: products,
         pageTitle: "Shop",
         path: "/",
+        currentPage: page,
+        hasNextPage: ITEMS_PER_PAGE * page < totalItems,
+        hasPreviousPage: page > 1,
+        nextPage: page + 1,
+        previousPage: page - 1,
+        lastPage: Math.ceil(totalItems / ITEMS_PER_PAGE) 
       });
     })
     .catch((err) => {
@@ -125,7 +143,6 @@ const getOrders = (req, res, next) => {
 };
 
 const getInvoice = (req, res, next) => {
-  
   const orderId = req.params.orderId;
 
   Order.findById(orderId)
